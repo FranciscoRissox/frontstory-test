@@ -1,5 +1,6 @@
 import express from 'express';
 import { AppDataSource } from "./data-source";
+import campaignRouter from "./routes/campaign";
 
 AppDataSource.initialize().then(async () => {
     console.log("Data Source has been initialized!");
@@ -7,9 +8,8 @@ AppDataSource.initialize().then(async () => {
     const app = express();
     const port = 3000;
 
-    app.get('/', (req, res) => {
-        res.send('Hello, World from TypeScript Express!');
-    });
+    app.use(express.json());
+    app.use('/campaigns', campaignRouter);
 
     app.listen(port, () => {
         console.log(`Server running at http://localhost:${port}`);

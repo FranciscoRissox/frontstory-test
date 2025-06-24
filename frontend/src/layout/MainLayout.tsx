@@ -2,17 +2,28 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
+import { Flex, Container } from '@chakra-ui/react';
+
 const MainLayout = () => {
   return (
-    <div className="flex flex-col h-screen">
+    <Flex direction="column" h="100vh">
       <Header />
-      <div className="flex flex-1">
+      <Flex flex="1" direction="column">
         <Sidebar />
-        <main className="flex-1 p-4 bg-gray-50 overflow-auto">
+        <Container
+          flex="1"
+          overflow="auto"
+          p={4}
+          bg="gray.50"
+          className="overflow-auto"
+          mt={10}
+          ml={{ base: '10vw', md: '15vw' }}
+          w={{ base: '90vw', md: '85vw' }}
+        >
           <Outlet />
-        </main>
-      </div>
-    </div>
+        </Container>
+      </Flex>
+    </Flex>
   );
 };
 

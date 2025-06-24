@@ -1,10 +1,12 @@
 import {
   Table,
   IconButton,
-  Box,Text
+  Box,Text,
+  Button
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Campaign } from '../api';
+import { MdDelete } from 'react-icons/md';
 
 
 const columns = [
@@ -17,9 +19,13 @@ const columns = [
   { label: 'Profit', key: 'profit' },
 ];
 
-const CampaignsTable = ({campaigns}:{campaigns: Campaign[]}) => {
+const CampaignsTable = ({campaigns,handleDelete}:{campaigns: Campaign[],handleDelete:(id:number)=>void}) => {
   const [rows, setRows] = useState(campaigns);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+  useEffect(()=>{
+    setRows(campaigns);
+  },[campaigns])
 
   const sortData = (key: string) => {
     let direction = 'asc';
@@ -44,7 +50,7 @@ const CampaignsTable = ({campaigns}:{campaigns: Campaign[]}) => {
     setRows(sorted);
   };
 
-  const getSortIcon = (key) => {
+  const getSortIcon = (key:string) => {
     if (sortConfig.key !== key) return null;
     return sortConfig.direction === 'asc' ? (
       <div>↑</div>
@@ -88,18 +94,16 @@ const CampaignsTable = ({campaigns}:{campaigns: Campaign[]}) => {
             <Table.Cell>{row.clicks}</Table.Cell>
             <Table.Cell>${row.cost}</Table.Cell>
             <Table.Cell>${row.revenue}</Table.Cell>
-            <Table.Cell>${row.profit}</Table.Cell>
+            <Table.Cell>${row.revenue-row.cost}</Table.Cell>
             <Table.Cell>
-              <IconButton
-                size="sm"
-                aria-label="Edit"
-                
-                mr={2}
-              />
-              <IconButton
+              <Button
                 size="sm"
                 aria-label="Delete"
-              />
+                
+                onClick={() => handleDelete(row.id)}
+              >
+                Delete
+              </Button>
             </Table.Cell>
           </Table.Row>
         ))}

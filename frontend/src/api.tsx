@@ -13,6 +13,7 @@ export interface Campaign {
   startDate: string;
   endDate: string;
   cost: number;
+  clicks:number;
   revenue: number;
   profit: number;
 }

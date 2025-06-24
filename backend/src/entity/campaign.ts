@@ -19,6 +19,9 @@ export class Campaign {
     cost!: number;
 
     @Column({ type: 'float' })
+    clicks!: number;
+
+    @Column({ type: 'float' })
     revenue!: number;
 
     profit!: number;

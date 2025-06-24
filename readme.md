@@ -4,6 +4,9 @@
 React
     Typescript
     Chakra UI
+    Recharts
+    React-icons
+    React-router-dom
 
 Node.js
     Typescript

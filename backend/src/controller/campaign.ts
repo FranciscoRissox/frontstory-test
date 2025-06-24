@@ -7,22 +7,9 @@ export class CampaignController {
     private campaignRepository = AppDataSource.getRepository(Campaign);
 
     getCampaigns = async (req: Request, res: Response) => {
-        const page = parseInt(req.query.page as string) || 1;
-        const limit = parseInt(req.query.limit as string) || 10;
-        const skip = (page - 1) * limit;
-
         try {
-            const [result, total] = await this.campaignRepository.findAndCount({
-                take: limit,
-                skip: skip
-            });
-
-            res.json({
-                data: result,
-                count: total,
-                page,
-                limit
-            });
+            const result = await this.campaignRepository.find();
+            res.json(result);
         } catch (error) {
             res.status(500).json({ message: "Error fetching campaigns", error });
         }

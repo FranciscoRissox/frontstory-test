@@ -3,7 +3,8 @@
 ## Built using
 React
     Typescript
-    
+    Chakra UI
+
 Node.js
     Typescript
     Express
